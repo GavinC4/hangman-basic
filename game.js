@@ -5,8 +5,6 @@ window.onload = function () {
         't', 'u', 'v', 'w', 'x', 'y', 'z'];
   
   var categories;         // Array of topics
-  var chosenCategory;     // Selected catagory
-  var getHint ;           // Word getHint
   var word ;              // Selected word
   var guess ;             // Geuss
   var geusses = [ ];      // Stored geusses
@@ -16,11 +14,6 @@ window.onload = function () {
 
   // Get elements
   var showLives = document.getElementById("mylives");
-  var showCatagory = document.getElementById("scatagory");
-  var getHint = document.getElementById("hint");
-  var showClue = document.getElementById("clue");
-
-
 
   // create alphabet ul
   var buttons = function () {
@@ -36,19 +29,7 @@ window.onload = function () {
       myButtons.appendChild(letters);
       letters.appendChild(list);
     }
-  }
-    
-  
-  // Select Catagory
-  var selectCat = function () {
-    if (chosenCategory === categories[0]) {
-      catagoryName.innerHTML = "The Chosen Category Is Premier League Football Teams";
-    } else if (chosenCategory === categories[1]) {
-      catagoryName.innerHTML = "The Chosen Category Is Films";
-    } else if (chosenCategory === categories[2]) {
-      catagoryName.innerHTML = "The Chosen Category Is Cities";
-    }
-  }
+  }    
 
   // Create geusses ul
    result = function () {
@@ -85,14 +66,14 @@ window.onload = function () {
     }
   }
 
-      // Animate man
+  // Animate man
   var animate = function () {
     var drawMe = lives ;
     drawArray[drawMe]();
   }
 
   
-   // Hangman
+  // Hangman
   canvas =  function(){
 
     myStickman = document.getElementById("stickman");
@@ -154,7 +135,29 @@ window.onload = function () {
    };
   
   drawArray = [rightLeg, leftLeg, rightArm, leftArm,  torso,  head, frame4, frame3, frame2, frame1]; 
-
+  
+  // // OnKeyup Function --- not working
+  //  check = function () {
+  //   document.onkeyup = function () {
+  //     var geuss = (this.innerHTML);
+  //     this.setAttribute("class", "active");
+  //     this.onkeyup = null;
+  //     for (var i = 0; i < word.length; i++) {
+  //       if (word[i] === geuss) {
+  //         geusses[i].innerHTML = geuss;
+  //         counter += 1;
+  //       } 
+  //     }
+  //     var j = (word.indexOf(geuss));
+  //     if (j === -1) {
+  //       lives -= 1;
+  //       comments();
+  //       animate();
+  //     } else {
+  //       comments();
+  //     }
+  //   }
+  // }
 
   // OnClick Function
    check = function () {
@@ -183,9 +186,7 @@ window.onload = function () {
   // Play
   play = function () {
     categories = [
-        ["everton", "liverpool", "swansea", "chelsea", "hull", "manchester-city", "newcastle-united"],
-        ["alien", "dirty-harry", "gladiator", "finding-nemo", "jaws"],
-        ["manchester", "milan", "madrid", "amsterdam", "prague"]
+        ["pork", "potatos", "cheese", "salmon", "milk", "bacon", "carrots"]
     ];
 
     chosenCategory = categories[Math.floor(Math.random() * categories.length)];
@@ -200,33 +201,16 @@ window.onload = function () {
     space = 0;
     result();
     comments();
-    selectCat();
     canvas();
   }
 
   play();
   
-  // Hint
-
-    hint.onclick = function() {
-
-      hints = [
-        ["Based in Mersyside", "Based in Mersyside", "First Welsh team to reach the Premier Leauge", "Owned by A russian Billionaire", "Once managed by Phil Brown", "2013 FA Cup runners up", "Gazza's first club"],
-        ["Science-Fiction horror film", "1971 American action film", "Historical drama", "Anamated Fish", "Giant great white shark"],
-        ["Northern city in the UK", "Home of AC and Inter", "Spanish capital", "Netherlands capital", "Czech Republic capital"]
-    ];
-
-    var catagoryIndex = categories.indexOf(chosenCategory);
-    var hintIndex = chosenCategory.indexOf(word);
-    showClue.innerHTML = "Clue: - " +  hints [catagoryIndex][hintIndex];
-  };
-
-   // Reset
+  // Reset
 
   document.getElementById('reset').onclick = function() {
     correct.parentNode.removeChild(correct);
     letters.parentNode.removeChild(letters);
-    showClue.innerHTML = "";
     context.clearRect(0, 0, 400, 400);
     play();
   }
